@@ -1,4 +1,4 @@
-# @anthropic/feia
+# feia-cli
 
 CLI para configurar o accelerator FEIA (Frontend Engineering AI Assistant) em projetos React.
 
@@ -6,10 +6,10 @@ CLI para configurar o accelerator FEIA (Frontend Engineering AI Assistant) em pr
 
 ```bash
 # Via npx (recomendado)
-npx @anthropic/feia init
+npx feia-cli init
 
 # Ou instale globalmente
-npm install -g @anthropic/feia
+npm install -g feia-cli
 ```
 
 ## Requisitos
@@ -31,12 +31,12 @@ Configura o accelerator FEIA no projeto. Executa:
 6. **Abertura do editor** com `conventions.yaml` para revisão
 
 ```bash
-npx @anthropic/feia init
+npx feia-cli init
 
 # Opções
-npx @anthropic/feia init --skip-deps      # Pular instalação de dependências
-npx @anthropic/feia init --skip-orval     # Pular execução do Orval
-npx @anthropic/feia init --skip-editor    # Não abrir editor
+npx feia-cli init --skip-deps      # Pular instalação de dependências
+npx feia-cli init --skip-orval     # Pular execução do Orval
+npx feia-cli init --skip-editor    # Não abrir editor
 ```
 
 ### `feia add-domain`
@@ -44,7 +44,7 @@ npx @anthropic/feia init --skip-editor    # Não abrir editor
 Adiciona um novo domínio de API ao projeto.
 
 ```bash
-npx @anthropic/feia add-domain inventory --spec specs/inventory.yaml --base-url /api/inventory
+npx feia-cli add-domain inventory --spec specs/inventory.yaml --base-url /api/inventory
 ```
 
 ### `feia remove-domain`
@@ -52,8 +52,8 @@ npx @anthropic/feia add-domain inventory --spec specs/inventory.yaml --base-url 
 Remove um domínio de API existente.
 
 ```bash
-npx @anthropic/feia remove-domain inventory
-npx @anthropic/feia remove-domain inventory -y  # Sem confirmação
+npx feia-cli remove-domain inventory
+npx feia-cli remove-domain inventory -y  # Sem confirmação
 ```
 
 ### `feia generate-hooks`
@@ -61,7 +61,7 @@ npx @anthropic/feia remove-domain inventory -y  # Sem confirmação
 Regenera hooks React Query de todos os domínios.
 
 ```bash
-npx @anthropic/feia generate-hooks
+npx feia-cli generate-hooks
 ```
 
 ### `feia conventions`
@@ -69,9 +69,9 @@ npx @anthropic/feia generate-hooks
 Gerencia convenções do projeto.
 
 ```bash
-npx @anthropic/feia conventions edit   # Abre conventions.yaml no editor
-npx @anthropic/feia conventions apply  # Regenera copilot-instructions.md
-npx @anthropic/feia conventions show   # Exibe convenções no terminal
+npx feia-cli conventions edit   # Abre conventions.yaml no editor
+npx feia-cli conventions apply  # Regenera copilot-instructions.md
+npx feia-cli conventions show   # Exibe convenções no terminal
 ```
 
 ### `feia doctor`
@@ -79,7 +79,7 @@ npx @anthropic/feia conventions show   # Exibe convenções no terminal
 Verifica integridade da configuração FEIA.
 
 ```bash
-npx @anthropic/feia doctor
+npx feia-cli doctor
 ```
 
 ### `feia status`
@@ -87,7 +87,7 @@ npx @anthropic/feia doctor
 Exibe status do projeto.
 
 ```bash
-npx @anthropic/feia status
+npx feia-cli status
 ```
 
 ### `feia update`
@@ -95,7 +95,7 @@ npx @anthropic/feia status
 Atualiza skills e agent para a versão mais recente.
 
 ```bash
-npx @anthropic/feia update
+npx feia-cli update
 ```
 
 ## Arquivos Gerados

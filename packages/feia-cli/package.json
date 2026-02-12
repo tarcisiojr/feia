@@ -1,5 +1,5 @@
 {
-  "name": "@anthropic/feia",
+  "name": "feia-cli",
   "version": "1.0.0",
   "description": "CLI para configurar o accelerator FEIA em projetos React",
   "type": "module",
