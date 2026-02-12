@@ -1,0 +1,86 @@
+# Instruções para Novas Features
+
+## Antes de Começar
+
+1. **Verifique as convenções**: Leia `frontendspec/conventions.yaml`
+2. **Entenda o design**: Analise o Figma ou especificação fornecida
+3. **Identifique a API**: Verifique hooks disponíveis em `src/api/generated/`
+
+## Estrutura de Arquivos
+
+### Componentes
+```
+{{paths.components}}/
+  NomeComponente/
+    index.tsx
+    NomeComponente.tsx
+    NomeComponente.test.tsx
+    styles.ts (se styled-components)
+```
+
+### Páginas
+```
+{{paths.pages}}/
+  NomePagina/
+    index.tsx
+    NomePagina.tsx
+    components/     # Componentes específicos da página
+```
+
+## Padrões de Código
+
+### Declaração de Componentes
+{{#eq components.declaration "arrow"}}
+```tsx
+export const MeuComponente = ({ prop1, prop2 }: Props) => {
+  return <div>...</div>;
+};
+```
+{{/eq}}
+{{#eq components.declaration "function"}}
+```tsx
+export function MeuComponente({ prop1, prop2 }: Props) {
+  return <div>...</div>;
+}
+```
+{{/eq}}
+
+### Uso de Hooks de API
+```tsx
+import { useGetDados } from '@/api/generated/dominio';
+
+const MeuComponente = () => {
+  const { data, isLoading, error } = useGetDados();
+
+  if (isLoading) return <Loading />;
+  if (error) return <Error error={error} />;
+
+  return <div>{data}</div>;
+};
+```
+
+### Estados de Loading
+{{#eq loading.component "skeleton"}}
+Use componentes Skeleton para loading states.
+{{/eq}}
+{{#eq loading.component "spinner"}}
+Use Spinner centralizado para loading states.
+{{/eq}}
+
+### Tratamento de Erros
+{{#eq errorHandling.apiError "toast"}}
+Exiba erros de API via toast notifications.
+{{/eq}}
+{{#eq errorHandling.apiError "inline"}}
+Exiba erros de API inline no componente.
+{{/eq}}
+
+## Checklist de Implementação
+
+- [ ] Componente criado no path correto
+- [ ] Props tipadas com TypeScript
+- [ ] Estados de loading implementados
+- [ ] Tratamento de erro implementado
+- [ ] Testes básicos criados (se aplicável)
+- [ ] Sem erros de TypeScript
+- [ ] Lint passando

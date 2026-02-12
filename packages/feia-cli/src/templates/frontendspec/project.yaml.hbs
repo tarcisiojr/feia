@@ -1,0 +1,32 @@
+# Configuração do Projeto FEIA
+# Metadados e configurações do accelerator
+
+name: {{projectName}}
+framework: {{framework}}
+
+# Domínios de API configurados
+domains:
+{{#each domains}}
+  - name: {{this.name}}
+    specPath: {{this.specPath}}
+    baseUrl: {{this.baseUrl}}
+    generatedDir: {{this.generatedDir}}
+{{/each}}
+{{#unless domains}}
+  # Nenhum domínio configurado
+  # Use "feia add-domain <name> --spec <path> --base-url <url>" para adicionar
+{{/unless}}
+
+# Integração com Figma
+figma:
+  enabled: {{figma.enabled}}
+  envVar: {{figma.envVar}}
+
+# Paths do projeto
+paths:
+  components: {{paths.components}}
+  pages: {{paths.pages}}
+  hooks: {{paths.hooks}}
+  utils: {{paths.utils}}
+  types: {{paths.types}}
+  api: {{paths.api}}

@@ -1,0 +1,25 @@
+/**
+ * Configuração do Orval - Geração de hooks React Query a partir de OpenAPI specs
+ * Gerado automaticamente pelo FEIA CLI
+ */
+
+import { defineConfig } from 'orval';
+
+export default defineConfig({
+{{#each domains}}
+  {{this.name}}: {
+    input: '{{this.specPath}}',
+    output: {
+      target: 'src/api/generated/{{this.name}}',
+      client: 'react-query',
+      baseUrl: '{{this.baseUrl}}',
+      override: {
+        mutator: {
+          path: './src/api/custom-instance.ts',
+          name: '{{camelCase this.name}}Instance',
+        },
+      },
+    },
+  },
+{{/each}}
+});

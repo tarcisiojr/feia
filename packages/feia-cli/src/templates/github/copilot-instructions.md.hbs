@@ -1,0 +1,73 @@
+# Copilot Instructions
+
+## Stack
+{{#if stack}}
+- Framework: {{stack.framework}}
+- CSS: {{stack.css}}
+- Test Runner: {{stack.testRunner}}
+- Linter: {{stack.linter}}
+- Formatter: {{stack.formatter}}
+{{#if stack.forms}}- Forms: {{stack.forms}}{{/if}}
+{{#if stack.validation}}- Validation: {{stack.validation}}{{/if}}
+{{#if stack.globalState}}- State Management: {{stack.globalState}}{{/if}}
+{{/if}}
+
+## Naming Conventions
+{{#if naming}}
+- Files: {{naming.files}}
+- Components: {{naming.components}}
+- Hooks: {{naming.hooks}}
+- Types: {{naming.types}}
+{{/if}}
+
+## Imports
+{{#if imports}}
+{{#if imports.alias}}
+- Use alias `{{imports.alias}}` for imports from src/
+{{/if}}
+{{#if imports.barrelFiles}}
+- Use barrel files (index.ts) for exporting modules
+{{/if}}
+{{/if}}
+
+## Components
+{{#if components}}
+- Declaration style: {{components.declaration}} functions
+- Export style: {{components.exportStyle}} exports
+{{/if}}
+
+## Error Handling
+{{#if errorHandling}}
+- API errors: {{errorHandling.apiError}}
+- Validation errors: {{errorHandling.validationError}}
+{{#if errorHandling.boundary}}- Use Error Boundaries for render errors{{/if}}
+{{/if}}
+
+## Loading States
+{{#if loading}}
+- Component loading: {{loading.component}}
+{{#if loading.global}}- Use global loading state{{/if}}
+{{/if}}
+
+## Testing
+{{#if testing}}
+- Test file pattern: {{testing.pattern}}
+- Test location: {{testing.location}}
+{{/if}}
+
+## Paths
+{{#if paths}}
+- Components: {{paths.components}}
+- Pages: {{paths.pages}}
+- Hooks: {{paths.hooks}}
+- Utils: {{paths.utils}}
+- Types: {{paths.types}}
+- API: {{paths.api}}
+{{/if}}
+
+{{#if custom}}
+## Custom Conventions
+{{#each custom}}
+- {{this}}
+{{/each}}
+{{/if}}

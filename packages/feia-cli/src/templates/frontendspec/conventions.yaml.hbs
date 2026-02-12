@@ -1,0 +1,64 @@
+# Convenções do Projeto - FEIA
+# Este arquivo é a fonte de verdade das convenções do projeto
+# Edite conforme necessário e execute "feia conventions apply" para atualizar as instruções do Copilot
+
+# Stack tecnológica
+stack:
+  framework: {{stack.framework}}{{lowConfidenceComment stack.frameworkConfidence}}
+  css: {{stack.css}}{{lowConfidenceComment stack.cssConfidence}}
+  testRunner: {{stack.testRunner}}{{lowConfidenceComment stack.testRunnerConfidence}}
+  linter: {{stack.linter}}{{lowConfidenceComment stack.linterConfidence}}
+  formatter: {{stack.formatter}}{{lowConfidenceComment stack.formatterConfidence}}
+  forms: {{stack.forms}}{{lowConfidenceComment stack.formsConfidence}}
+  validation: {{stack.validation}}{{lowConfidenceComment stack.validationConfidence}}
+  globalState: {{stack.globalState}}{{lowConfidenceComment stack.globalStateConfidence}}
+
+# Convenções de nomenclatura
+naming:
+  files: {{naming.files}}{{lowConfidenceComment naming.filesConfidence}}
+  components: {{naming.components}}{{lowConfidenceComment naming.componentsConfidence}}
+  hooks: camelCase  # useNomeDoHook
+  types: PascalCase  # INomeDoTipo
+
+# Paths do projeto
+paths:
+  components: {{paths.components}}
+  pages: {{paths.pages}}
+  hooks: {{paths.hooks}}
+  utils: {{paths.utils}}
+  types: {{paths.types}}
+  api: {{paths.api}}
+
+# Imports
+imports:
+  alias: {{#if imports.alias}}'{{imports.alias}}'{{else}}null{{/if}}
+  barrelFiles: {{imports.barrelFiles}}
+
+# Componentes
+components:
+  declaration: {{components.declaration}}{{lowConfidenceComment components.declarationConfidence}}
+  exportStyle: {{components.exportStyle}}{{lowConfidenceComment components.exportStyleConfidence}}
+
+# Tratamento de erros
+errorHandling:
+  apiError: toast  # Opções: toast, alert, inline, custom
+  validationError: inline  # Opções: inline, toast, custom
+  boundary: true  # Usar Error Boundary para erros de renderização
+
+# Estados de carregamento
+loading:
+  global: false  # Usar loading global da aplicação
+  component: skeleton  # Opções: skeleton, spinner, text, custom
+
+# Testes
+testing:
+  pattern: "*.test.tsx"  # Ou *.spec.tsx
+  location: colocated  # Opções: colocated, __tests__, separate
+
+# Convenções customizadas
+# Adicione suas próprias convenções aqui
+custom:
+  # Exemplos:
+  # - "Sempre usar useCallback para handlers passados como props"
+  # - "Preferir composição sobre herança"
+  # - "Queries devem usar Suspense"

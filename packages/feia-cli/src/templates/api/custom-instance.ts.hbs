@@ -1,0 +1,61 @@
+/**
+ * Instâncias customizadas do Axios para cada domínio de API
+ * Gerado automaticamente pelo FEIA CLI
+ */
+
+import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
+
+/**
+ * Instância base do Axios com configurações comuns
+ */
+const axiosInstance = axios.create({
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+/**
+ * Interceptor de request para adicionar token de autenticação
+ * Descomente e configure conforme seu sistema de auth
+ */
+// axiosInstance.interceptors.request.use((config) => {
+//   const token = localStorage.getItem('token');
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
+
+/**
+ * Interceptor de response para tratamento global de erros
+ */
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Tratamento global de erros
+    // Customize conforme necessário
+    if (error.response?.status === 401) {
+      // Handle unauthorized
+    }
+    return Promise.reject(error);
+  }
+);
+
+{{#each domains}}
+/**
+ * Instância customizada para o domínio {{this.name}}
+ */
+export const {{camelCase this.name}}Instance = <T>(
+  config: AxiosRequestConfig<T>
+): Promise<AxiosResponse<T>> => {
+  return axiosInstance({
+    ...config,
+    baseURL: '{{this.baseUrl}}',
+  });
+};
+
+{{/each}}
+/**
+ * Exporta a instância base para uso direto se necessário
+ */
+export { axiosInstance };

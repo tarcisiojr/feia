@@ -1,0 +1,240 @@
+# Frontend Spec - Order Detail Page
+# Exemplo de especificação completa para uma página de detalhes de pedido
+
+spec:
+  name: OrderDetailPage
+  description: Página que exibe detalhes completos de um pedido, permitindo visualização de itens, status e ações
+  route: /orders/:orderId
+  author: FEIA
+  version: 1.0.0
+
+# Requisitos funcionais
+requirements:
+  - Exibir informações gerais do pedido (número, data, status)
+  - Listar todos os itens do pedido com quantidades e preços
+  - Mostrar resumo de valores (subtotal, frete, desconto, total)
+  - Permitir atualização de status (se usuário tem permissão)
+  - Exibir histórico de alterações de status
+  - Suportar impressão/download do pedido
+
+# Estrutura de componentes
+components:
+  - name: OrderDetailPage
+    description: Container principal da página
+    type: page
+    props: []
+    state:
+      - name: orderId
+        type: string
+        source: route params
+    children:
+      - OrderHeader
+      - OrderItems
+      - OrderSummary
+      - OrderActions
+      - OrderHistory
+
+  - name: OrderHeader
+    description: Cabeçalho com informações principais do pedido
+    type: component
+    props:
+      - name: order
+        type: Order
+        required: true
+    state: []
+    displays:
+      - Número do pedido
+      - Data de criação
+      - Status atual (com badge colorido)
+      - Informações do cliente
+
+  - name: OrderItems
+    description: Lista de itens do pedido
+    type: component
+    props:
+      - name: items
+        type: OrderItem[]
+        required: true
+      - name: onItemClick
+        type: "(itemId: string) => void"
+        required: false
+    state:
+      - name: expandedItemId
+        type: string | null
+        initial: null
+    features:
+      - Exibir imagem, nome, quantidade e preço de cada item
+      - Expandir item para ver detalhes
+      - Responsivo (table em desktop, cards em mobile)
+
+  - name: OrderSummary
+    description: Resumo financeiro do pedido
+    type: component
+    props:
+      - name: subtotal
+        type: number
+        required: true
+      - name: shipping
+        type: number
+        required: true
+      - name: discount
+        type: number
+        required: false
+      - name: total
+        type: number
+        required: true
+    state: []
+
+  - name: OrderActions
+    description: Ações disponíveis para o pedido
+    type: component
+    props:
+      - name: order
+        type: Order
+        required: true
+      - name: onStatusChange
+        type: "(status: OrderStatus) => void"
+        required: true
+      - name: canEdit
+        type: boolean
+        required: true
+    state:
+      - name: isUpdating
+        type: boolean
+        initial: false
+    actions:
+      - Atualizar status
+      - Imprimir pedido
+      - Baixar PDF
+      - Cancelar pedido (se permitido)
+
+  - name: OrderHistory
+    description: Histórico de alterações do pedido
+    type: component
+    props:
+      - name: history
+        type: OrderHistoryEntry[]
+        required: true
+    state: []
+    displays:
+      - Timeline de eventos
+      - Data/hora de cada evento
+      - Usuário responsável
+      - Descrição da alteração
+
+# Hooks de API necessários
+hooks:
+  queries:
+    - name: useGetOrderById
+      description: Busca detalhes do pedido
+      params:
+        - orderId: string
+      returns: Order
+      loading: Skeleton da página inteira
+      error: Mensagem de erro com retry
+
+  mutations:
+    - name: useUpdateOrderStatus
+      description: Atualiza status do pedido
+      params:
+        - orderId: string
+        - status: OrderStatus
+      onSuccess: Toast de sucesso + refetch
+      onError: Toast de erro
+
+# Tipos TypeScript
+types:
+  - name: Order
+    definition: |
+      interface Order {
+        id: string;
+        number: string;
+        createdAt: string;
+        status: OrderStatus;
+        customer: Customer;
+        items: OrderItem[];
+        subtotal: number;
+        shipping: number;
+        discount?: number;
+        total: number;
+        history: OrderHistoryEntry[];
+      }
+
+  - name: OrderStatus
+    definition: |
+      type OrderStatus =
+        | 'pending'
+        | 'confirmed'
+        | 'processing'
+        | 'shipped'
+        | 'delivered'
+        | 'cancelled';
+
+  - name: OrderItem
+    definition: |
+      interface OrderItem {
+        id: string;
+        productId: string;
+        name: string;
+        image: string;
+        quantity: number;
+        unitPrice: number;
+        totalPrice: number;
+      }
+
+# Casos de teste
+tests:
+  unit:
+    - "OrderHeader deve exibir número e data do pedido"
+    - "OrderHeader deve exibir badge de status com cor correta"
+    - "OrderItems deve renderizar lista de itens"
+    - "OrderItems deve expandir item ao clicar"
+    - "OrderSummary deve calcular e exibir totais"
+    - "OrderActions deve desabilitar ações se não tem permissão"
+
+  integration:
+    - "deve carregar dados do pedido ao montar"
+    - "deve exibir skeleton durante loading"
+    - "deve exibir erro se pedido não existe"
+    - "deve atualizar status e refetch dados"
+    - "deve navegar para produto ao clicar em item"
+
+  accessibility:
+    - "deve ter heading estruturado corretamente"
+    - "deve ter labels em todos os botões"
+    - "deve ser navegável por teclado"
+    - "deve ter contraste adequado"
+
+# Estados da página
+states:
+  loading:
+    description: Skeleton de toda a página
+    duration: Até dados carregarem
+
+  error:
+    description: Mensagem de erro com botão retry
+    triggers:
+      - Pedido não encontrado
+      - Erro de rede
+      - Sem permissão
+
+  empty:
+    description: N/A (pedido sempre tem dados ou erro)
+
+  success:
+    description: Página com todos os dados exibidos
+
+# Responsividade
+responsive:
+  mobile:
+    - OrderItems como cards empilhados
+    - Actions como menu dropdown
+    - History colapsável
+
+  tablet:
+    - Layout similar ao desktop
+    - Actions como botões inline
+
+  desktop:
+    - OrderItems como tabela
+    - Sidebar com actions e history

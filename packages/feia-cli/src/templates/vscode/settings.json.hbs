@@ -1,0 +1,13 @@
+{
+{{#if figma.enabled}}
+  "mcp.servers": {
+    "figma": {
+      "command": "npx",
+      "args": ["-y", "figma-mcp"],
+      "env": {
+        "FIGMA_ACCESS_TOKEN": "${env:{{figma.envVar}}}"
+      }
+    }
+  }
+{{/if}}
+}

@@ -1,0 +1,61 @@
+# React Page Generation Skill
+
+## Descrição
+Gera componentes e páginas React seguindo as convenções do projeto.
+
+## Quando usar
+- Criar nova página ou componente
+- Implementar design do Figma
+- Gerar componente a partir de especificação
+
+## Inputs esperados
+- Especificação do componente (Frontend Spec)
+- Design de referência (opcional)
+- Hooks de API a utilizar (opcional)
+
+## Processo
+
+### 1. Análise da Spec
+- Identifica componentes necessários
+- Mapeia props e estado
+- Define estrutura de arquivos
+
+### 2. Geração de Componentes
+Estrutura de arquivos:
+```
+{{paths.components}}/
+  NomeComponente/
+    index.tsx         # Exportação
+    NomeComponente.tsx # Implementação
+    NomeComponente.test.tsx # Testes (se aplicável)
+    types.ts          # Tipos específicos
+```
+
+### 3. Implementação
+- Usa {{stack.css}} para estilização
+{{#if stack.forms}}- Usa {{stack.forms}} para formulários{{/if}}
+{{#if stack.validation}}- Usa {{stack.validation}} para validação{{/if}}
+- Segue padrão de declaração: {{components.declaration}} functions
+- Segue padrão de export: {{components.exportStyle}}
+
+### 4. Integração com API
+- Importa hooks de `src/api/generated/`
+- Implementa loading states
+- Implementa error handling
+
+## Paths do Projeto
+- Componentes: `{{paths.components}}`
+- Páginas: `{{paths.pages}}`
+- Hooks: `{{paths.hooks}}`
+- Utils: `{{paths.utils}}`
+- Types: `{{paths.types}}`
+
+## Naming Conventions
+- Arquivos: {{naming.files}}
+- Componentes: {{naming.components}}
+- Hooks: {{naming.hooks}}
+
+## Output
+- Arquivos de componente criados
+- Testes básicos (se configurado)
+- Tipos TypeScript
