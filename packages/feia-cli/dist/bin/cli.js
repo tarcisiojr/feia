@@ -19,7 +19,7 @@ import { updateCommand } from '../src/commands/update.js';
 // Obtém versão do package.json
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const packageJsonPath = join(__dirname, '..', 'package.json');
+const packageJsonPath = join(__dirname, '..', '..', 'package.json');
 const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'));
 // Configuração do programa
 const program = new Command();
